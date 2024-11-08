@@ -21,6 +21,7 @@ class Lexer {
     char peek();
     void skip();
     void abort(char *txt);
+    void skipWhitespace();
 };
 
 #endif

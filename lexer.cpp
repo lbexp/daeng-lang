@@ -29,13 +29,22 @@ char Lexer::peek() { return source[curPos + 1]; }
 
 // Get generated token from curChar
 Token Lexer::getToken() {
+    skipWhitespace();
+
     Token token(curChar);
     if (!token.type) {
         abort((char *)"Unknown token");
     }
+
     nextChar();
 
     return token;
 }
 
 void Lexer::abort(char *msg) { throw std::runtime_error(msg); }
+
+void Lexer::skipWhitespace() {
+    while (curChar == ' ' || curChar == '\t') {
+        nextChar();
+    }
+}
