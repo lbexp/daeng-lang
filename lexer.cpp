@@ -3,7 +3,7 @@
 
 // Constructor to initialized variables
 Lexer::Lexer(std::string src) {
-    source = src + '\n';
+    source = src;
     curPos = 0;
     isProcessing = true;
 
