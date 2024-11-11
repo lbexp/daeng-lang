@@ -1,6 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include <cstring>
 enum TokenType {
     EOF = -1,
     NEWLINE = 0,
@@ -30,28 +31,46 @@ enum TokenType {
 
 class Token {
   public:
-    Token(char txt) {
-        if (txt == '+') {
+    Token(char txt[2]) {
+        if (txt[0] == '+') {
             type = PLUS;
-        } else if (txt == '-') {
+        } else if (txt[0] == '-') {
             type = MINUS;
-        } else if (txt == '*') {
+        } else if (txt[0] == '*') {
             type = ASTERISK;
-        } else if (txt == '/') {
+        } else if (txt[0] == '/') {
             type = SLASH;
-        } else if (txt == '\n') {
+        } else if (txt[0] == '\n') {
             type = NEWLINE;
-        } else if (txt == '\0') {
+        } else if (txt[0] == '\0') {
             type = EOF;
+        } else if (txt[0] == '=') {
+            if (txt[1] == '=') {
+                type = EQEQ;
+            } else {
+                type = EQ;
+            }
+        } else if (txt[0] == '>') {
+            if (txt[1] == '=') {
+                type = GTEQ;
+            } else {
+                type = GT;
+            }
+        } else if (txt[0] == '<') {
+            if (txt[1] == '=') {
+                type = LTEQ;
+            } else {
+                type = LT;
+            }
         } else {
             // Do nothing
             return;
         }
 
-        text = txt;
+        strncpy(text, txt, 2);
     }
 
-    char text;
+    char text[2];
     TokenType type;
 };
 

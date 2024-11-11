@@ -12,11 +12,11 @@
  * 4. Emitter -> produce compiled code
  */
 int main() {
-    Lexer lexer("+-");
+    Lexer lexer(">=");
 
     while (lexer.isProcessing) {
         Token token = lexer.getToken();
-        std::cout << token.text << "," << token.type;
+        std::cout << token.text << " -> " << token.type << std::endl;
     }
 
     return 0;

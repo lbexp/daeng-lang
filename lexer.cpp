@@ -4,7 +4,7 @@
 // Constructor to initialized variables
 Lexer::Lexer(std::string src) {
     source = src;
-    curPos = 0;
+    curPos = -1;
     isProcessing = true;
 
     // Initial processing
@@ -13,6 +13,8 @@ Lexer::Lexer(std::string src) {
 
 // Get to the next character
 void Lexer::nextChar() {
+    curPos += 1;
+
     if (curPos >= source.length()) {
         isProcessing = false;
         curChar = '\0';
@@ -21,7 +23,6 @@ void Lexer::nextChar() {
     }
 
     curChar = source[curPos];
-    curPos += 1;
 }
 
 // Peek next character
@@ -31,7 +32,15 @@ char Lexer::peek() { return source[curPos + 1]; }
 Token Lexer::getToken() {
     skipWhitespace();
 
-    Token token(curChar);
+    char curChars[2] = "";
+    curChars[0] = curChar;
+
+    if (peek() == '=') {
+        nextChar();
+        curChars[1] = curChar;
+    }
+
+    Token token(curChars);
     if (!token.type) {
         abort((char *)"Unknown token");
     }
