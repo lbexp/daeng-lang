@@ -22,6 +22,7 @@ class Lexer {
     void skip();
     void abort(char *txt);
     void skipWhitespace();
+    void skipComment();
 };
 
 #endif

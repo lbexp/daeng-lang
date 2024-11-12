@@ -2,12 +2,14 @@
 #define TOKEN_H
 
 #include <cstring>
+
 enum TokenType {
-    EOF = -1,
-    NEWLINE = 0,
-    NUMBER = 1,
-    INDENT = 2,
-    STRING = 3,
+    UNDEFINED = 0,
+    EOF = 1,
+    NEWLINE = 2,
+    NUMBER = 3,
+    INDENT = 4,
+    STRING = 5,
     // Keywords
     INE = 105,
     BEMANA = 106,
@@ -63,7 +65,7 @@ class Token {
                 type = LT;
             }
         } else {
-            // Do nothing
+            type = UNDEFINED;
             return;
         }
 

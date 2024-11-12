@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include <iostream>
 #include <stdexcept>
 
 // Constructor to initialized variables
@@ -31,6 +32,7 @@ char Lexer::peek() { return source[curPos + 1]; }
 // Get generated token from curChar
 Token Lexer::getToken() {
     skipWhitespace();
+    skipComment();
 
     char curChars[2] = "";
     curChars[0] = curChar;
@@ -42,6 +44,9 @@ Token Lexer::getToken() {
 
     Token token(curChars);
     if (!token.type) {
+        std::cout << '\n'
+                  << "Token: type -> " << token.type << " , text -> "
+                  << token.text << std::endl;
         abort((char *)"Unknown token");
     }
 
@@ -50,10 +55,19 @@ Token Lexer::getToken() {
     return token;
 }
 
+// Exit lexer processing
 void Lexer::abort(char *msg) { throw std::runtime_error(msg); }
 
 void Lexer::skipWhitespace() {
     while (curChar == ' ' || curChar == '\t') {
         nextChar();
+    }
+}
+
+void Lexer::skipComment() {
+    if (curChar == '#') {
+        while (curChar != '\n') {
+            nextChar();
+        }
     }
 }
