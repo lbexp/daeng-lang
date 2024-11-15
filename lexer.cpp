@@ -1,6 +1,7 @@
 #include "lexer.h"
+#include "token.h"
 #include <iostream>
-#include <stdexcept>
+#include <string>
 
 // Constructor to initialized variables
 Lexer::Lexer(std::string src) {
@@ -34,15 +35,80 @@ Token Lexer::getToken() {
     skipWhitespace();
     skipComment();
 
-    char curChars[2] = "";
-    curChars[0] = curChar;
+    std::string tokenText = "";
+    TokenType tokenType = UNDEFINED;
 
-    if (peek() == '=') {
+    if (curChar == '+') {
+        tokenText.push_back(curChar);
+        tokenType = PLUS;
+    } else if (curChar == '-') {
+        tokenText.push_back(curChar);
+        tokenType = MINUS;
+    } else if (curChar == '*') {
+        tokenText.push_back(curChar);
+        tokenType = ASTERISK;
+    } else if (curChar == '/') {
+        tokenText.push_back(curChar);
+        tokenType = SLASH;
+    } else if (curChar == '\n') {
+        tokenText.push_back(curChar);
+        tokenType = NEWLINE;
+    } else if (curChar == '\0') {
+        tokenText.push_back(curChar);
+        tokenType = ENDOF;
+    } else if (curChar == '=') {
+        tokenText.push_back(curChar);
+
+        if (peek() == '=') {
+            nextChar();
+
+            tokenText.push_back(curChar);
+            tokenType = EQEQ;
+        } else {
+            tokenType = EQ;
+        }
+    } else if (curChar == '>') {
+        tokenText.push_back(curChar);
+
+        if (peek() == '=') {
+            nextChar();
+
+            tokenText.push_back(curChar);
+            tokenType = GTEQ;
+        } else {
+            tokenType = GT;
+        }
+    } else if (curChar == '<') {
+        tokenText.push_back(curChar);
+
+        if (peek() == '=') {
+            nextChar();
+
+            tokenText.push_back(curChar);
+            tokenType = LTEQ;
+        } else {
+            tokenType = LT;
+        }
+    } else if (curChar == '\"') {
         nextChar();
-        curChars[1] = curChar;
+        int startPos = curPos;
+
+        while (curChar != '\"') {
+            if (curChar == '\r' || curChar == '\n' || curChar == '\t' ||
+                curChar == '\\' || curChar == '%') {
+                abort((char *)"Invalid character inside string");
+            }
+
+            tokenText.push_back(curChar);
+            nextChar();
+        }
+
+        tokenType = STRING;
+    } else {
+        tokenType = UNDEFINED;
     }
 
-    Token token(curChars);
+    Token token(tokenText, tokenType);
     if (!token.type) {
         std::cout << '\n'
                   << "Token: type -> " << token.type << " , text -> "

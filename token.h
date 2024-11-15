@@ -2,10 +2,11 @@
 #define TOKEN_H
 
 #include <cstring>
+#include <string>
 
 enum TokenType {
     UNDEFINED = 0,
-    EOF = 1,
+    ENDOF = 1,
     NEWLINE = 2,
     NUMBER = 3,
     INDENT = 4,
@@ -33,46 +34,12 @@ enum TokenType {
 
 class Token {
   public:
-    Token(char txt[2]) {
-        if (txt[0] == '+') {
-            type = PLUS;
-        } else if (txt[0] == '-') {
-            type = MINUS;
-        } else if (txt[0] == '*') {
-            type = ASTERISK;
-        } else if (txt[0] == '/') {
-            type = SLASH;
-        } else if (txt[0] == '\n') {
-            type = NEWLINE;
-        } else if (txt[0] == '\0') {
-            type = EOF;
-        } else if (txt[0] == '=') {
-            if (txt[1] == '=') {
-                type = EQEQ;
-            } else {
-                type = EQ;
-            }
-        } else if (txt[0] == '>') {
-            if (txt[1] == '=') {
-                type = GTEQ;
-            } else {
-                type = GT;
-            }
-        } else if (txt[0] == '<') {
-            if (txt[1] == '=') {
-                type = LTEQ;
-            } else {
-                type = LT;
-            }
-        } else {
-            type = UNDEFINED;
-            return;
-        }
-
-        strncpy(text, txt, 2);
+    Token(std::string txt, TokenType typ) {
+        text = txt;
+        type = typ;
     }
 
-    char text[2];
+    std::string text;
     TokenType type;
 };
 
