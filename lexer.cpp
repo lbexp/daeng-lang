@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "token.h"
+#include <cctype>
 #include <iostream>
 #include <string>
 
@@ -91,7 +92,6 @@ Token Lexer::getToken() {
         }
     } else if (curChar == '\"') {
         nextChar();
-        int startPos = curPos;
 
         while (curChar != '\"') {
             if (curChar == '\r' || curChar == '\n' || curChar == '\t' ||
@@ -104,6 +104,25 @@ Token Lexer::getToken() {
         }
 
         tokenType = STRING;
+    } else if (isdigit(curChar)) {
+        tokenText.push_back(curChar);
+
+        while (isdigit(peek())) {
+            nextChar();
+            tokenText.push_back(curChar);
+        }
+
+        if (peek() == '.') {
+            nextChar();
+            tokenText.push_back(curChar);
+
+            while (isdigit(peek())) {
+                nextChar();
+                tokenText.push_back(curChar);
+            }
+        }
+
+        tokenType = NUMBER;
     } else {
         tokenType = UNDEFINED;
     }
