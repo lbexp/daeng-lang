@@ -12,7 +12,7 @@
  * 4. Emitter -> produce compiled code
  */
 int main() {
-    Lexer lexer(">=#adsadad\n>\"yo\"=2=1.23");
+    Lexer lexer(">=#adsadad\n>\"yo\"=2=1.23kalo");
 
     while (lexer.isProcessing) {
         Token token = lexer.getToken();

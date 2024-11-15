@@ -12,12 +12,17 @@ enum TokenType {
     INDENT = 4,
     STRING = 5,
     // Keywords
-    INE = 105,
-    BEMANA = 106,
-    BEMANAKALO = 107,
-    BEGITUJI = 108,
-    KALO = 109,
-    ITUJI = 111,
+    LABEL = 101,
+    GOTO = 102,
+    PRINT = 103,
+    INPUT = 104,
+    LET = 105,
+    IF = 106,
+    THEN = 107,
+    ENDIF = 108,
+    WHILE = 109,
+    REPEAT = 110,
+    ENDWHILE = 111,
     // Operators
     EQ = 201,
     PLUS = 202,
@@ -37,6 +42,32 @@ class Token {
     Token(std::string txt, TokenType typ) {
         text = txt;
         type = typ;
+    }
+
+    static TokenType checkKeyword(std::string_view txt) {
+        if (txt == "ine") {
+            return LET;
+        } else if (txt == "cetak") {
+            return PRINT;
+        } else if (txt == "ambi") {
+            return INPUT;
+        } else if (txt == "ine") {
+            return LET;
+        } else if (txt == "bemana") {
+            return IF;
+        } else if (txt == "bemanakalo") {
+            return THEN;
+        } else if (txt == "begitumo") {
+            return ENDIF;
+        } else if (txt == "kalo") {
+            return WHILE;
+        } else if (txt == "ulangi") {
+            return REPEAT;
+        } else if (txt == "ituji") {
+            return ENDWHILE;
+        }
+
+        return UNDEFINED;
     }
 
     std::string text;

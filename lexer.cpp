@@ -1,15 +1,12 @@
 #include "lexer.h"
 #include "token.h"
-#include <cctype>
 #include <iostream>
-#include <string>
 
 // Constructor to initialized variables
 Lexer::Lexer(std::string src) {
     source = src;
     curPos = -1;
     isProcessing = true;
-
     // Initial processing
     nextChar();
 }
@@ -123,6 +120,15 @@ Token Lexer::getToken() {
         }
 
         tokenType = NUMBER;
+    } else if (isalpha(curChar)) {
+        tokenText.push_back(curChar);
+
+        while (isalnum(peek())) {
+            nextChar();
+            tokenText.push_back(curChar);
+        }
+
+        tokenType = Token::checkKeyword(tokenText);
     } else {
         tokenType = UNDEFINED;
     }
