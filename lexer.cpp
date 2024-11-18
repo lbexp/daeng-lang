@@ -128,7 +128,7 @@ Token Lexer::getToken() {
             tokenText.push_back(curChar);
         }
 
-        tokenType = checkKeyword(tokenText);
+        tokenType = tok::checkKeyword(tokenText);
     } else {
         tokenType = UNDEFINED;
     }

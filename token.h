@@ -37,11 +37,12 @@ enum TokenType {
 };
 
 struct Token {
-
     std::string text;
     TokenType type;
 };
 
+namespace tok {
 TokenType checkKeyword(std::string_view txt);
+} // namespace tok
 
 #endif

@@ -1,6 +1,6 @@
 #include "token.h"
 
-TokenType checkKeyword(std::string_view txt) {
+TokenType tok::checkKeyword(std::string_view txt) {
     if (txt == "ine") {
         return LET;
     } else if (txt == "pigi") {
