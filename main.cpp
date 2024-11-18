@@ -1,6 +1,5 @@
 #include "lexer.h"
-#include "token.h"
-#include <iostream>
+#include "parser.h"
 
 /**
  * This program will compile a specific source code lang into C code
@@ -13,11 +12,9 @@
  */
 int main() {
     Lexer lexer(">=#adsadad\n>\"yo\"=2=1.23kalo");
+    Parser parser(&lexer);
 
-    while (lexer.isProcessing) {
-        Token token = lexer.getToken();
-        std::cout << token.text << " -> " << token.type << std::endl;
-    }
+    parser.program();
 
     return 0;
 }

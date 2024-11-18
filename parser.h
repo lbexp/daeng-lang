@@ -6,14 +6,19 @@
 
 class Parser {
   public:
-    Parser(Lexer lexer);
+    Parser(Lexer *lxr);
+    void program();
 
   private:
-    bool checkToken(Token token);
-    bool checkPeek(Token token);
-    void match();
+    Token curToken;
+    Token peekToken;
+    Lexer *lexer;
+
+    bool checkToken(TokenType typ);
+    bool checkPeek(TokenType typ);
+    void match(TokenType typ);
     void nextToken();
-    void abort();
+    void abort(char *msg);
 };
 
 #endif
