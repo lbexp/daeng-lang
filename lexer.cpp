@@ -128,12 +128,14 @@ Token Lexer::getToken() {
             tokenText.push_back(curChar);
         }
 
-        tokenType = Token::checkKeyword(tokenText);
+        tokenType = checkKeyword(tokenText);
     } else {
         tokenType = UNDEFINED;
     }
 
-    Token token(tokenText, tokenType);
+    token.type = tokenType;
+    token.text = tokenText;
+
     if (!token.type) {
         std::cout << '\n'
                   << "Token: type -> " << token.type << " , text -> "

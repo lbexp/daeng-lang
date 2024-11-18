@@ -17,6 +17,8 @@ class Lexer {
   private:
     std::string source;
     int curPos;
+    // TODO: Make token to be pointer
+    Token token;
 
     char peek();
     void skip();
