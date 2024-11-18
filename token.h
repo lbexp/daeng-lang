@@ -47,6 +47,8 @@ class Token {
     static TokenType checkKeyword(std::string_view txt) {
         if (txt == "ine") {
             return LET;
+        } else if (txt == "pigi") {
+            return GOTO;
         } else if (txt == "cetak") {
             return PRINT;
         } else if (txt == "ambi") {
