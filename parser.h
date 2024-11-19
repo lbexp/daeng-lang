@@ -18,6 +18,9 @@ class Parser {
     bool checkPeek(TokenType typ);
     void match(TokenType typ);
     void nextToken();
+    void statement();
+    void expression();
+    void newline();
     void abort(char *msg);
 };
 

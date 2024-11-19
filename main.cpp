@@ -11,7 +11,7 @@
  * 4. Emitter -> produce compiled code
  */
 int main() {
-    Lexer lexer(">=#adsadad\n>\"yo\"=2=1.23kalo");
+    Lexer lexer("cetak \"hello, world !\"");
     Parser parser(&lexer);
 
     parser.program();
