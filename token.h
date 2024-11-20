@@ -8,7 +8,7 @@ enum TokenType {
     ENDOF = 1,
     NEWLINE = 2,
     NUMBER = 3,
-    INDENT = 4,
+    IDENT = 4,
     STRING = 5,
     // Keywords
     LABEL = 101,
