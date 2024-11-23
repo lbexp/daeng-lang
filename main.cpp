@@ -1,5 +1,8 @@
 #include "lexer.h"
 #include "parser.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 /**
  * This program will compile a specific source code lang into C code
@@ -10,8 +13,24 @@
  * 3. Parser -> produce program tree
  * 4. Emitter -> produce compiled code
  */
-int main() {
-    Lexer lexer("cetak \"hello, world !\"");
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        throw std::runtime_error("Need argument for the file path");
+        return 0;
+    }
+
+    if (argc > 2) {
+        throw std::runtime_error("Too many arguments");
+        return 0;
+    }
+
+    std::ifstream file;
+    file.open(argv[1]);
+
+    std::stringstream stream;
+    stream << file.rdbuf();
+
+    Lexer lexer(stream.str());
     Parser parser(&lexer);
 
     parser.program();
