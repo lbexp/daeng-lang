@@ -99,9 +99,70 @@ void Parser::statement() {
     newline();
 }
 
-void Parser::expression() { std::cout << "EXPRESSION" << std::endl; }
+void Parser::expression() {
+    std::cout << "EXPRESSION" << std::endl;
 
-void Parser::comparison() { std::cout << "COMPARISON" << std::endl; }
+    term();
+
+    while (checkToken(PLUS) || checkToken(MINUS)) {
+        nextToken();
+        term();
+    }
+}
+
+void Parser::comparison() {
+    std::cout << "COMPARISON" << std::endl;
+
+    expression();
+
+    if (isComparisonOperator()) {
+        nextToken();
+        expression();
+    } else {
+        abort((char *)"Expected comparison operator");
+    }
+
+    while (isComparisonOperator()) {
+        nextToken();
+        expression();
+    }
+}
+
+void Parser::term() {
+    std::cout << "TERM" << std::endl;
+
+    while (checkToken(ASTERISK) || checkToken(SLASH)) {
+        nextToken();
+        unary();
+    }
+}
+
+void Parser::unary() {
+    std::cout << "UNARY" << std::endl;
+
+    while (checkToken(PLUS) || checkToken(MINUS)) {
+        nextToken();
+    }
+
+    primary();
+}
+
+void Parser::primary() {
+    std::cout << "PRIMARY" << std::endl;
+
+    if (checkToken(NUMBER)) {
+        nextToken();
+    } else if (checkToken(IDENT)) {
+        nextToken();
+    } else {
+        abort((char *)"Unexpected primary token");
+    }
+}
+
+bool Parser::isComparisonOperator() {
+    return checkToken(GT) || checkToken(GTEQ) || checkToken(LT) ||
+           checkToken(LTEQ) || checkToken(EQEQ) || checkToken(NOTEQ);
+}
 
 void Parser::newline() { std::cout << "NEWLINE" << std::endl; }
 

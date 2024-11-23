@@ -23,6 +23,12 @@ class Parser {
     void statement();
     void expression();
     void comparison();
+    void term();
+    void unary();
+    void primary();
+
+    bool isComparisonOperator();
+
     void newline();
 
     void abort(char *msg);
