@@ -31,6 +31,11 @@ void Parser::nextToken() {
 
 void Parser::program() {
     std::cout << "PROGRAM" << std::endl;
+
+    while (checkToken(NEWLINE)) {
+        nextToken();
+    }
+
     while (!checkToken(ENDOF)) {
         statement();
     }
