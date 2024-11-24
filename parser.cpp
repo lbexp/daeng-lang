@@ -164,6 +164,14 @@ bool Parser::isComparisonOperator() {
            checkToken(LTEQ) || checkToken(EQEQ) || checkToken(NOTEQ);
 }
 
-void Parser::newline() { std::cout << "NEWLINE" << std::endl; }
+void Parser::newline() {
+    std::cout << "NEWLINE" << std::endl;
+
+    match(NEWLINE);
+
+    while (checkToken(NEWLINE)) {
+        nextToken();
+    }
+}
 
 void Parser::abort(char *msg) { throw std::runtime_error(msg); }
