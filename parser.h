@@ -1,18 +1,20 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "emitter.h"
 #include "lexer.h"
 #include "token.h"
 
 class Parser {
   public:
-    Parser(Lexer *lxr);
+    Parser(Lexer *lxr, Emitter *emtr);
     void program();
 
   private:
     Token curToken;
     Token peekToken;
     Lexer *lexer;
+    Emitter *emitter;
 
     bool checkToken(TokenType typ);
     bool checkPeek(TokenType typ);

@@ -1,7 +1,7 @@
+#include "emitter.h"
 #include "lexer.h"
 #include "parser.h"
 #include <fstream>
-#include <iostream>
 #include <sstream>
 
 /**
@@ -31,9 +31,11 @@ int main(int argc, char *argv[]) {
     stream << file.rdbuf();
 
     Lexer lexer(stream.str());
-    Parser parser(&lexer);
+    Emitter emitter("output.c");
+    Parser parser(&lexer, &emitter);
 
     parser.program();
+    emitter.write();
 
     return 0;
 }

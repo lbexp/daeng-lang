@@ -2,10 +2,11 @@
 #include "token.h"
 #include <iostream>
 
-Parser::Parser(Lexer *lxr) {
+Parser::Parser(Lexer *lxr, Emitter *emtr) {
     lexer = lxr;
-    Token token = lexer->getToken();
+    emitter = emtr;
 
+    Token token = lexer->getToken();
     curToken = token;
     peekToken = token;
 
